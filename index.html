@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Gradient Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .example-container {
+            background-color: #e0e0e0;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+        }
+
+        .cap {
+            width: 200px;
+            height: 100px;
+            background-image: linear-gradient(to right, red, yellow);
+            margin-top: 10px;
+        }
+
+        .editor-section {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .editor-btn {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .run-btn {
+            padding: 10px 15px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin-top: 10px;
+        }
+
+        .output {
+            width: 200px;
+            height: 100px;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="example-container">
+        <h2>Linear Gradient Example</h2>
+        <pre><code>.cap {
+    background-image: linear-gradient(to right, red, yellow);
+}</code></pre>
+        <div class="cap"></div>
+        <button class="editor-btn" onclick="openEditor()">Edit Code</button>
+    </div>
+
+    <div class="editor-section" id="editor-section">
+        <textarea id="code-editor">
+.cap {
+    width: 200px;
+    height: 100px;
+    background-image: linear-gradient(to right, red, yellow);
+}
+        </textarea>
+        <button class="run-btn" onclick="runCode()">Run</button>
+        <div class="output" id="live-output"></div>
+    </div>
+
+    <script>
+        function openEditor() {
+            // Hide the original example and show the editor section
+            document.querySelector('.example-container').style.display = 'none';
+            document.getElementById('editor-section').style.display = 'block';
+
+            // Pre-fill the output section with the current CSS
+            runCode();
+        }
+
+        function runCode() {
+            const codeEditor = document.getElementById('code-editor').value;
+            const output = document.getElementById('live-output');
+
+            // Create a new style tag to apply the edited CSS
+            const styleTag = document.createElement('style');
+            styleTag.textContent = codeEditor;
+
+            // Remove any previous styles added by the editor
+            const oldStyleTag = document.getElementById('editor-style');
+            if (oldStyleTag) {
+                oldStyleTag.remove();
+            }
+
+            // Add the new style to the head of the document
+            styleTag.id = 'editor-style';
+            document.head.appendChild(styleTag);
+
+            // Update the output with the edited CSS
+            output.innerHTML = '<div class="cap"></div>';
+        }
+    </script>
+
+</body>
+</html>
